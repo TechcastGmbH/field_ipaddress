@@ -5,14 +5,14 @@ namespace Drupal\field_ipaddress\Tests;
 use Drupal\Component\Utility\Unicode;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests IP address field functionality.
  *
  * @group field_ipaddress
  */
-class IpAddressFieldTest extends WebTestBase {
+class IpAddressFieldTest extends BrowserTestBase {
 
   /**
    * Modules to enable.
@@ -23,7 +23,7 @@ class IpAddressFieldTest extends WebTestBase {
 
   /**
    * Field name
-   * 
+   *
    * @var string
    */
   protected $field_name = 'field_testip';
@@ -43,7 +43,7 @@ class IpAddressFieldTest extends WebTestBase {
       'administer node fields',
     ));
     $this->drupalLogin($web_user);
-    
+
     $this->fieldStorage = FieldStorageConfig::create(array(
       'field_name' => $this->field_name,
       'entity_type' => 'entity_test',
@@ -59,7 +59,8 @@ class IpAddressFieldTest extends WebTestBase {
     $this->field->save();
 
     // Create a form display for the default form mode.
-    entity_get_form_display('entity_test', 'entity_test', 'default')
+    \Drupal::service('entity_display.repository')
+      ->getFormDisplay('entity_test', 'entity_test', 'default')
       ->setComponent($this->field_name, array(
         'type' => 'ipaddress_default',
       ))

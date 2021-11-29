@@ -4,5 +4,6 @@ description: 'Provides an IP address field that will habndle single IP addresses
 package : Fields
 version: VERSION
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - field
